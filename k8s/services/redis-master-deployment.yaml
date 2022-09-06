@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: redis-master
+  labels:
+    app: redis
+
+spec:
+  # Pod replicas
+  replicas: 1
+
+  #Pod Configuration
+  template:
+    metadata:
+      name: redis-master
+      labels:
+        app: redis
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - name: master
+        image: redis
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1000Mi
+        ports:
+        - containerPort: 6379
+  # Select using pod label
+  selector:
+    matchLabels:
+      app: redis
+      role: master
+      tier: backend

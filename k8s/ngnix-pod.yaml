@@ -1,0 +1,19 @@
+# apiVersion - Which version of the Kubernetes API you're using to create this object
+apiVersion: v1
+
+# kind - What kind of object you want to create
+kind: Pod
+
+# metadata - Data that helps uniquely identify the object, including a name string, UID, and optional namespace
+metadata:
+  name: nginx-pod
+  #it gives informattion required when filtering pods (eg: Pods associated with nginx)
+  labels:
+    app: nginx
+    tier: dev
+
+# spec - What state you desire for the object
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx

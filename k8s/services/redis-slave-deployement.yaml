@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: redis-slave
+  labels:
+    app: redis
+
+spec:
+  # Pod replicas
+  replicas: 3
+
+  #Pod Configuration
+  template:
+    metadata:
+      name: redis-slave
+      labels:
+        app: redis
+        role: slave
+        tier: backend
+    spec:
+      containers:
+      - name: slave
+        image: gcr.io/google_samples/gb-redissalve:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1000Mi
+        ports:
+        - containerPort: 6379
+  # Select using pod label
+  selector:
+    matchLabels:
+      app: redis
+      role: slave
+      tier: backend

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+
+metadata:
+  name: fluentds
+  labels:
+    app: nginx-app
+
+spec:
+  template:
+    metadata:
+      labels:
+        name: fluentd
+    spec:
+      containers:
+      - name: fluentd
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+      #node label: selecr node having this label
+      nodeSelector:
+        disktype: ssd
+        
+  # Select using pod label
+  selector:
+    matchLabels:
+      name: fluentd
